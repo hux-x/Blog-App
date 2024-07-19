@@ -4,8 +4,8 @@ const path = require('path')
 const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser')
 const checkForAuthCookie = require('./middleware/auth')
-const multer = require('multer')
-app.use(multer)
+app.use(express.static(path.resolve('./public')))
+const blog = require('./models/blog')
 app.use(cookieParser())
 app.use(checkForAuthCookie("uid"))
 app.use(express.urlencoded({extended:false}))
@@ -17,10 +17,15 @@ app.use(express.urlencoded({extended:false}))
 app.use(express.json())
 const userRouter = require("./routes/user")
 const blogRouter = require('./routes/blog')
+const user = require('./models/user')
 app.use('/blogs',blogRouter)
 app.use('/user',userRouter)
-app.get('/',(req,res)=>{
-    res.render('home',{user:req.user})
+app.get('/',async(req,res)=>{
+    const blogs = await blog.find({})
+
+    
+    console.log(blogs)
+    res.render('home',{user:req.user,blogs})
 })
 app.listen(5000,()=>{
     console.log('server listening to port : 5000')
