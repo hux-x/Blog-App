@@ -1,0 +1,266 @@
+<style>
+    /* Existing styles */
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f0f2f5;
+    }
+    .blog-card {
+        border-radius: 10px;
+        margin-top: 20px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background: linear-gradient(145deg, #fff, #e6e9ef);
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        animation: cardRender 1s ease-out;
+    }
+    
+    @keyframes cardRender {
+        from {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    .navbar {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        background: linear-gradient(135deg, #6a11cb, #2575fc);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        padding: 10px 20px;
+        color: #fff;
+    }
+
+    .navbar .navbar-brand {
+        font-size: 24px;
+        font-weight: bold;
+        color: #fff;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    }
+
+    .navbar .navbar-nav .nav-link {
+        color: #fff;
+        transition: color 0.3s ease;
+    }
+
+    .navbar .navbar-nav .nav-link:hover {
+        color: #f0f2f5;
+    }
+
+    .navbar-toggler {
+        border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .navbar-toggler-icon {
+        background-image: url('data:image/svg+xml,...');
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+        padding-top: 70px;
+        box-sizing: border-box;
+    }
+
+    .page-heading {
+        margin-top: 20px;
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .blog-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+        padding: 10px;
+        width: 100%;
+        max-width: 1200px;
+    }
+
+    .blog-card {
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background: linear-gradient(145deg, #fff, #e6e9ef);
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        position: relative; /* Needed for positioning the buttons */
+    }
+
+    .blog-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .blog-card-image img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .blog-card-content {
+        padding: 20px;
+        text-align: center;
+        position: relative;
+    }
+
+    .blog-card-title {
+        margin: 0 0 10px;
+        font-size: 20px;
+        color: #333;
+        animation: fadeIn 1s ease-in-out;
+    }
+
+    .blog-card-button {
+        display: inline-block;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        background: linear-gradient(145deg, #6a11cb, #2575fc);
+        color: #fff;
+        text-decoration: none;
+        transition: background 0.3s ease-in-out;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .blog-card-button:hover {
+        background: linear-gradient(145deg, #2575fc, #6a11cb);
+    }
+
+    .blog-card-actions {
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        display: flex;
+        gap: 10px;
+    }
+
+    .blog-card-actions button {
+        background: transparent;
+        border: none;
+        color: #333;
+        font-size: 18px;
+        cursor: pointer;
+        transition: color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .blog-card-actions button:hover {
+        color: #2575fc;
+    }
+
+    .blog-card-actions .delete-button:hover {
+        color: #a50d0d;
+        box-shadow: 0 0 10px rgba(255, 0, 0, 0.7); /* Red glowing effect */
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .footer {
+        background: linear-gradient(135deg, #6a11cb, #2575fc);
+        color: #fff;
+        padding: 20px 10px;
+        box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
+        text-align: center;
+    }
+
+    .footer .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .footer .footer-section {
+        flex: 1;
+        margin: 0 10px;
+        min-width: 200px;
+    }
+
+    .footer .footer-section h2 {
+        margin: 0 0 10px;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .footer .footer-section p {
+        margin: 5px 0;
+        font-size: 14px;
+    }
+
+    .footer .social-links {
+        margin: 10px 0;
+        text-align: center;
+    }
+
+    .footer .social-links a {
+        color: #fff;
+        margin: 0 10px;
+        text-decoration: none;
+        font-size: 24px;
+        transition: color 0.3s ease;
+    }
+
+    .footer .social-links a:hover {
+        color: #f0f2f5;
+    }
+
+    .footer .contact-info a {
+        color: #fff;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .footer .contact-info a:hover {
+        color: #f0f2f5;
+    }
+
+    .footer .newsletter {
+        margin: 10px 0;
+    }
+
+    .footer .newsletter input[type="email"] {
+        padding: 8px;
+        border: none;
+        border-radius: 5px;
+        width: 100%;
+        max-width: 200px;
+        margin-right: 10px;
+    }
+
+    .footer .newsletter button {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 5px;
+        background: linear-gradient(145deg, #6a11cb, #2575fc);
+        color: #fff;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+
+    .footer .newsletter button:hover {
+        background: linear-gradient(145deg, #2575fc, #6a11cb);
+    }
+
+    .footer .copyright {
+        margin-top: 20px;
+        font-size: 12px;
+    }
+</style>

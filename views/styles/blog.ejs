@@ -1,0 +1,119 @@
+<style>
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #ffffff;
+  margin: 0;
+  padding: 0;
+  color: #333;
+  border-radius: 10px;
+margin-top: 20px;
+      
+        
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(145deg, #fff, #e6e9ef);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  animation: cardRender 1s ease-out;
+}
+.body {
+        border-radius: 10px;
+        margin-top: 20px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background: linear-gradient(145deg, #fff, #e6e9ef);
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        animation: cardRender 1s ease-out;
+    }
+    
+    @keyframes cardRender {
+        from {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 10px;
+}
+
+.blog-card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  max-width: 700px;
+  width: 100%;
+  text-align: center;
+  padding: 20px;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.blog-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.cover-image {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 6px;
+  border-bottom: 3px solid #ddd;
+}
+
+.title {
+  font-size: 2em;
+  margin: 15px 0 8px;
+  color: #333;
+  font-weight: 700;
+}
+
+.author {
+  color: #666;
+  font-size: 1.1em;
+  margin-bottom: 15px;
+  font-style: italic;
+}
+
+.body {
+  font-size: 0.9em;
+  line-height: 1.5;
+  text-align: left;
+  color: #444;
+}
+
+.body h2, .body h3 {
+  color: #555;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 3px;
+  margin-top: 15px;
+}
+
+.body p {
+  margin: 10px 0;
+}
+
+.body a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.body a:hover {
+  text-decoration: underline;
+}
+
+.footer {
+  font-size: 0.8em;
+  color: #777;
+  margin-top: 15px;
+}
+</style>
