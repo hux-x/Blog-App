@@ -271,10 +271,10 @@
                         
                         <!-- Edit and Delete buttons -->
                         <div class="blog-card-actions">
-                            <button onclick="window.location.href='/blogs/edit/<%= blog._id %>'">
+                            <button onclick="window.location.href='/blogs/edit'">
                                 <i class="fas fa-edit"></i>
                             </button>
-                            <button class="delete-button" onclick="if(confirm('Are you sure you want to delete this blog?')) window.location.href='/blogs/delete/<%= blog._id %>'">
+                            <button class="delete-button" onclick="if(confirm('Are you sure you want to delete this blog?')) window.location.href='/user/profile/delete/<%= blog._id %>'">
                                 <i class="fas fa-trash"></i>
                             </button>
                         </div>

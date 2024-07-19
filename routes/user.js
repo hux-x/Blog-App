@@ -2,6 +2,8 @@ const express = require('express')
 const router = express.Router()
 const {createHmac} = require('crypto')
 const user = require('../models/user')
+const blog = require('../models/blog')
+
 const {createToken,validateToken} = require('../services/auth')
 const { error } = require('console')
 router.get('/signin',async(req,res)=>{
@@ -45,5 +47,30 @@ try{
 }
 }).get(async(req,res)=>{
     return res.render('signin')
+})
+
+router.get('/profile',async(req,res)=>{
+    const User = validateToken(req.cookies['uid'])
+    const blogs = await blog.find({createdBy:User._id})
+    
+    console.log(User.email)
+    res.render('profile',{user:req.user,blogs})
+  })
+
+
+router.get('/profile/delete/:id',async(req,res)=>{
+    const User = validateToken(req.cookies['uid'])
+    
+    const toDelete = await blog.findById(req.params.id)
+    console.log(User._id,req.params.id,toDelete._id, toDelete.createdBy)
+    if(toDelete.createdBy == User._id){
+        await blog.deleteOne(toDelete)
+        res.redirect('/user/profile')
+    }else{
+        res.send('You are not Authorized to perform this action')
+    }
+    
+    console.log(toDelete)
+   
 })
 module.exports = router

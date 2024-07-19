@@ -28,13 +28,7 @@ app.get('/',async(req,res)=>{
     console.log(blogs)
     res.render('home',{user:req.user,blogs})
 })
-app.get('/profile',async(req,res)=>{
-    const User = validateToken(req.cookies['uid'])
-    const blogs = await blog.find({createdBy:User._id})
-    
-    console.log(User.email)
-    res.render('profile',{user:req.user,blogs})
-  })
+
 app.listen(5000,()=>{
     console.log('server listening to port : 5000')
 })
