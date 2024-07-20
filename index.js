@@ -18,17 +18,12 @@ app.use(express.json())
 const userRouter = require("./routes/user")
 const blogRouter = require('./routes/blog')
 const user = require('./models/user')
-const { validateToken } = require('./services/auth')
 app.use('/blogs',blogRouter)
 app.use('/user',userRouter)
 app.get('/',async(req,res)=>{
     const blogs = await blog.find({})
-
-    
-    console.log(req.user)
     res.render('home',{user:req.user,blogs})
 })
-
 app.listen(5000,()=>{
     console.log('server listening to port : 5000')
 })

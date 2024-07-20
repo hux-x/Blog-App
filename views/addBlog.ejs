@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Blog</title>
-  
-<%- include('./styles/addblog') %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <%- include('./styles/addblog') %>
 </head>
 <body>
     <a href="/" class="back-arrow">&larr; Back</a>
@@ -13,8 +13,8 @@
         <form action="/blogs/addblog" method="POST" enctype="multipart/form-data">
             <h1>Add a New Blog</h1>
             <div class="form-group">
-                <label for="file">Add  cover Image</label>
-                <input type="file" id="file" name="coverImage" >
+                <label for="file">Add Cover Image</label>
+                <input type="file" id="file" name="coverImage">
             </div>
             <div class="form-group">
                 <label for="title">Title</label>
@@ -22,7 +22,30 @@
             </div>
             <div class="form-group">
                 <label for="content">Content</label>
-                <textarea id="content" name="body" rows="10" required></textarea>
+                <div class="toolbar">
+                    <button type="button" onclick="applyStyle('bold')"><i class="fas fa-bold"></i></button>
+                    <button type="button" onclick="applyStyle('italic')"><i class="fas fa-italic"></i></button>
+                    <button type="button" onclick="applyStyle('underline')"><i class="fas fa-underline"></i></button>
+                    <button type="button" onclick="applyStyle('strikeThrough')"><i class="fas fa-strikethrough"></i></button>
+                    <button type="button" onclick="applyStyle('foreColor', 'red')"><i class="fas fa-font" style="color:red"></i></button>
+                    <button type="button" onclick="applyStyle('foreColor', 'blue')"><i class="fas fa-font" style="color:blue"></i></button>
+                    <button type="button" onclick="applyStyle('foreColor', 'green')"><i class="fas fa-font" style="color:green"></i></button>
+                    <button type="button" onclick="applyStyle('backColor', 'yellow')"><i class="fas fa-highlighter"></i></button>
+                    <button type="button" onclick="applyStyle('justifyLeft')"><i class="fas fa-align-left"></i></button>
+                    <button type="button" onclick="applyStyle('justifyCenter')"><i class="fas fa-align-center"></i></button>
+                    <button type="button" onclick="applyStyle('justifyRight')"><i class="fas fa-align-right"></i></button>
+                    <button type="button" onclick="applyStyle('insertOrderedList')"><i class="fas fa-list-ol"></i></button>
+                    <button type="button" onclick="applyStyle('insertUnorderedList')"><i class="fas fa-list-ul"></i></button>
+                    <button type="button" onclick="applyStyle('createLink', prompt('Enter the URL', 'http://'))"><i class="fas fa-link"></i></button>
+                    <button type="button" onclick="applyStyle('removeFormat')"><i class="fas fa-eraser"></i></button>
+                    <button type="button" onclick="applyHeading('H1')">H1</button>
+                    <button type="button" onclick="applyHeading('H2')">H2</button>
+                    <button type="button" onclick="applyHeading('H3')">H3</button>
+                    <button type="button" onclick="increaseFontSize()"><i class="fas fa-plus"></i></button>
+                    <button type="button" onclick="decreaseFontSize()"><i class="fas fa-minus"></i></button>
+                </div>
+                <div class="text-area" contenteditable="true" id="content-editable"></div>
+                <textarea id="content" name="body" rows="10" style="display:none;" required></textarea>
             </div>
             <div class="form-group">
                 <label for="author">Author</label>
@@ -32,13 +55,53 @@
                 <label for="tags">Tags (comma separated)</label>
                 <input type="text" id="tags" name="tags">
             </div>
-            <button type="submit" class="btn">Submit</button>
+            <button type="submit" class="btn" onclick="submitForm()">Submit</button>
         </form>
     </div>
+    <script>
+        function applyStyle(style, value) {
+            document.execCommand(style, false, value || null);
+        }
+
+        function applyHeading(heading) {
+            document.execCommand('formatBlock', false, heading);
+        }
+
+        function increaseFontSize() {
+            changeFontSize(1);
+        }
+
+        function decreaseFontSize() {
+            changeFontSize(-1);
+        }
+
+        function changeFontSize(delta) {
+            var selection = window.getSelection();
+            if (selection.rangeCount > 0) {
+                var range = selection.getRangeAt(0);
+                var span = document.createElement('span');
+                span.innerHTML = range.toString();
+                range.deleteContents();
+                range.insertNode(span);
+                
+                var computedStyle = window.getComputedStyle(span, null);
+                var currentSize = parseInt(computedStyle.fontSize.replace('px', ''), 10);
+                var newSize = currentSize + delta;
+                
+                span.style.fontSize = newSize + 'px';
+                
+                selection.removeAllRanges();
+                selection.addRange(range);
+            }
+        }
+
+        function submitForm() {
+            const contentEditable = document.getElementById('content-editable');
+            const textarea = document.getElementById('content');
+            textarea.value = contentEditable.innerHTML;
+        }
+    </script>
 </body>
 </html>
-
-
-
 
 

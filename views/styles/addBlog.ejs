@@ -10,9 +10,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 100vw;
-        height: 100vh;
-        overflow: hidden;
+        min-height: 100vh;
         background: #f4f4f9;
         color: #333;
     }
@@ -46,9 +44,9 @@
         border-radius: 8px;
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         width: 70vw;
-        height: auto;
         animation: fadeIn 1.5s ease-in-out;
         z-index: 1;
+        overflow: auto;
     }
 
     @keyframes fadeIn {
@@ -66,7 +64,6 @@
         margin-bottom: 1rem;
         font-size: 24px;
         text-align: center;
-        color: #007BFF;
     }
 
     .form-group {
@@ -124,4 +121,32 @@
         transform: translateY(0);
     }
 
+    .toolbar {
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        padding: 10px;
+        background-color: #f7f7f7;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .toolbar button {
+        margin-right: 5px;
+        padding: 5px 10px;
+        font-size: 14px;
+        cursor: pointer;
+        border: none;
+        background: none;
+    }
+
+    .toolbar button i {
+        font-size: 18px;
+    }
+
+    .text-area {
+        border: 1px solid #ccc;
+        padding: 10px;
+        min-height: 200px;
+        overflow-y: auto;
+    }
 </style>
