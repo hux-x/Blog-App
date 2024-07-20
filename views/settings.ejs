@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body, html {
+    height: 100%;
+    margin: 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    font-family: 'Arial', sans-serif;
+}
+
+.container-fluid {
+    height: 100%;
+}
+
+.card {
+    border: none;
+    border-radius: 15px;
+    height: 100%;
+}
+
+.card-header {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+}
+
+.btn-primary {
+    background-color: #764ba2;
+    border: none;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #563d7c;
+    transform: scale(1.05);
+}
+
+.btn-danger {
+    background-color: #e3342f;
+    border: none;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.btn-danger:hover {
+    background-color: #cc1f1a;
+    transform: scale(1.05);
+}
+
+.form-control {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-control:focus {
+    box-shadow: 0 0 5px rgba(118, 75, 162, 0.5);
+}
+
+label {
+    font-weight: bold;
+    color: #333;
+}
+
+.settings-section {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.5s;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+}
+
+.settings-section h4 {
+    border-bottom: 2px solid #764ba2;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    color: #764ba2;
+}
+
+.nav-pills .nav-link.active {
+    background-color: #764ba2;
+    color: white;
+    border: none;
+}
+
+.nav-pills .nav-link {
+    color: #764ba2;
+    border: none;
+    margin-bottom: 10px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.nav-pills .nav-link:hover {
+    background-color: #563d7c;
+    color: white;
+    transform: scale(1.05);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+    </style>
+</head>
+<body>
+    <div class="container-fluid h-100">
+        <div class="row h-100">
+            <div class="col-12 h-100">
+                <div class="card shadow-lg h-100">
+                    <div class="card-header text-white text-center">
+                        <h2>Settings</h2>
+                    </div>
+                    <div class="row no-gutters h-100">
+                        <div class="col-md-3 bg-light p-3">
+                            <ul class="nav flex-column nav-pills h-100" id="settingsTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="name-tab" data-toggle="pill" href="#name-section" role="tab" aria-controls="name-section" aria-selected="true">Change Name</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="email-tab" data-toggle="pill" href="#email-section" role="tab" aria-controls="email-section" aria-selected="false">Change Email</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="password-tab" data-toggle="pill" href="#password-section" role="tab" aria-controls="password-section" aria-selected="false">Change Password</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="delete-tab" data-toggle="pill" href="#delete-section" role="tab" aria-controls="delete-section" aria-selected="false">Delete Account</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-9 p-4">
+                            <div class="tab-content h-100" id="settingsTabContent">
+                                <div class="tab-pane fade show active h-100" id="name-section" role="tabpanel" aria-labelledby="name-tab">
+                                    <div class="settings-section animated fadeIn h-100">
+                                        <h4>Change Name</h4>
+                                        <form id="name-form" action="/user/settings/updatename" method="POST">
+                                            <div class="form-group">
+                                                <label for="newName">New Name</label>
+                                                <input type="text" class="form-control" id="name" name="newName" placeholder="Enter new name">
+                                                    <p>Login again to view changes</p>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary btn-block">Save Changes</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade h-100" id="email-section" role="tabpanel" aria-labelledby="email-tab">
+                                    <div class="settings-section animated fadeIn h-100">
+                                        <h4>Change Email</h4>
+                                        <form id="email-form" action="/user/settings/updateemail" method="POST">
+                                            <div class="form-group">
+                                                <label for="email">New Email</label>
+                                                <input type="email" class="form-control" id="email" name="email" placeholder="Enter new email">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="confirm-email">Confirm Email</label>
+                                                <input type="email" class="form-control" id="confirm-email" name="confirm-email" placeholder="Confirm new email">
+                                                <p>login again to view</p>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary btn-block">Save Changes</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade h-100" id="password-section" role="tabpanel" aria-labelledby="password-tab">
+                                    <div class="settings-section animated fadeIn h-100">
+                                        <h4>Change Password</h4>
+                                        <form id="password-form" action="/user/settings/updatepassword" method="POST">
+                                            <div class="form-group">
+                                                <label for="password">New Password</label>
+                                                <input type="text" class="form-control" id="password" name="newPassword" placeholder="Enter new password">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="confirm-password">Confirm Password</label>
+                                                <input type="text" class="form-control" id="confirm-password" name="confirmPassword" placeholder="Confirm new password">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="current-password">Enter Current Password</label>
+                                                <input type="text" class="form-control" id="current-password" name="currentPassword" placeholder="Enter current password to confirm changes">
+                                            </div>
+                                            <button type="submit" class="btn btn-primary btn-block">Save Changes</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade h-100" id="delete-section" role="tabpanel" aria-labelledby="delete-tab">
+                                    <div class="settings-section animated fadeIn h-100">
+                                        <h4>Delete Account</h4>
+                                        <p>Warning: This action is irreversible. Please confirm your decision to delete your account.</p>
+                                        <form id="delete-form" action="/user/settings/deleteuser" method="POST">
+                                            <div class="form-group">
+                                                <label for="delete-password">Enter Password to Confirm</label>
+                                                <input type="text" class="form-control" id="delete-password" name="password" placeholder="Enter password to confirm deletion">
+                                            </div>
+                                            <button type="submit" class="btn btn-danger btn-block">Delete Account</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+

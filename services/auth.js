@@ -5,7 +5,8 @@ const createToken = async (user)=>{
         _id: user._id,
         email: user.email,
         profileImageURL: user.profileImageURL,
-        role:user.role
+        role:user.role,
+        fullName:user.fullName
     }
     const token = jwt.sign(payload,KEY)
     return token

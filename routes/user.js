@@ -50,13 +50,63 @@ try{
 })
 
 router.get('/profile',async(req,res)=>{
-    const User = validateToken(req.cookies['uid'])
-    const blogs = await blog.find({createdBy:User._id})
     
-    console.log(User.email)
+    const blogs = await blog.find({createdBy:req.user._id})
     res.render('profile',{user:req.user,blogs})
   })
 
+
+
+router.get('/settings', async(req,res)=>{
+res.render('settings')
+})
+router.post('/settings/updatename',async(req,res)=>{
+    const changeName = await user.updateOne({_id:req.user._id},{$set:{fullName:req.body.newName}})
+    res.clearCookie('uid').redirect('/user/signin')
+})
+router.post('/settings/updateemail',async(req,res)=>{
+    if(req.email !== req.body.confrimEmail) res.redirect('/user/settings')
+    const changeEmail = await user.updateOne({_id:req.user._id},{$set:{email:req.body.email}})
+
+    res.clearCookie('uid').redirect('/user/signin')
+})
+router.post('/settings/deleteuser',async(req,res)=>{
+    const currentUser = req.user
+    const toDelete = await user.findOne({email:currentUser.email})
+    const{password} = req.body
+    
+     const hashedPassword = createHmac("sha256",toDelete.salt).update(password).digest('hex')
+    
+     if(toDelete.password == hashedPassword ){
+        await user.deleteOne(toDelete)
+        res.redirect('/user/signup')
+     }else{
+        res.redirect('/user/settings')
+
+        
+     }
+})
+router.post('/settings/updatepassword',async(req,res)=>{
+    const currentUser = req.user
+    const toUpdate = await user.findOne({email:currentUser.email})
+    const{newPassword,confirmPassword,currentPassword} = req.body
+    if(newPassword !== confirmPassword) return 
+    console.log(toUpdate)
+    
+     const hashedPassword = createHmac("sha256",toUpdate.salt).update(currentPassword).digest('hex')
+     const updatedpassword = createHmac("sha256",toUpdate.salt).update(newPassword).digest('hex')
+    
+     if(toUpdate.password == hashedPassword ){
+        
+        await user.updateOne({email:toUpdate.email},{$set:{password:updatedpassword}})
+        console.log(updatedpassword)
+        res.redirect('/')
+     }else{
+        res.redirect('/user/settings')
+
+        
+     }
+})
 
 router.get('/profile/delete/:id',async(req,res)=>{
     const User = validateToken(req.cookies['uid'])

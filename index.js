@@ -25,7 +25,7 @@ app.get('/',async(req,res)=>{
     const blogs = await blog.find({})
 
     
-    console.log(blogs)
+    console.log(req.user)
     res.render('home',{user:req.user,blogs})
 })
 
